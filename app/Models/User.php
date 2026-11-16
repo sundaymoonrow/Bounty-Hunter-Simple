@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'no_wa'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -28,5 +28,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function bountyDibuat()
+    {
+        return $this->hasMany(Bounty::class, 'pembuat_id');
+    }
+
+    public function bountyDikerjakan()
+    {
+        return $this->hasMany(Bounty::class, 'pengerja_id');
+    }
+
+    public function tawaran()
+    {
+        return $this->hasMany(Tawaran::class, 'penawar_id');
     }
 }
